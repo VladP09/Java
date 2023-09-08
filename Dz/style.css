@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+}
+input {
+    height: 45px;
+    width: 100%;
+    color: #3B5983;
+    font-size: 12px;
+    line-height: 16px;
+    border: 2px solid #E9F2FF;
+    border-radius: 5px;
+    padding-left: 25px;
+}
+.form-title{
+    color: royalblue;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 23px;
+    margin-bottom: 38px;
+    text-align: center;
+}
+.register-form-container{
+    max-width: 415px;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 50px rgba(217, 229, 255 , 0.7);
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 38px;
+    padding-bottom: 38px;
+}
+.form-filed{
+    margin-bottom: 13px;
+}
+.button{
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    height: 35px;
+    background: #247FFF;
+    border-radius: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+}
+a.button{
+    text-decoration: none;
+}
+.button:hover{
+    background-color: #0D6CF2;
+}
+.button-authorization{
+    color: #C6CFDC;
+    background: #F2F6FF;
+}
+.button-authorization:hover{
+    background: #E2E6F0;
+    color: #fff;
+}
+.divider{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 14px;
+    color: #405D87;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}

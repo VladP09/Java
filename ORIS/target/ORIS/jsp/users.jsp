@@ -16,7 +16,6 @@
             <th>EMAIL</th>
             <th>PASSWORD</th>
         </tr>
-        <%--@elvariable id="usersForJsp" type="java.util.List"--%>
         <c:forEach items="${usersForJsp}" var="user">
             <tr>
                 <td>${user.id}</td>

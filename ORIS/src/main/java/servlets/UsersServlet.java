@@ -42,7 +42,6 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<User> result = usersRepository.findAll();
-        System.out.println(result);
         request.setAttribute("usersForJsp", result);
         request.getRequestDispatcher("/jsp/users.jsp").forward(request, response);
     }

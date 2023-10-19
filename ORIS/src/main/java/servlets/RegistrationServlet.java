@@ -2,6 +2,7 @@ package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.UUID;
 
 
 @WebServlet("/reg")
@@ -40,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
 
 
         try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)){
-
+            String uuid = UUID.randomUUID().toString();
             Statement statement = connection.createStatement();
             String sqlInsertUser = "insert into driver1(first_name, email, password)" +
                     " values ('" + name + "', '"  + email + "', '" + password + "');";
@@ -53,6 +55,14 @@ public class RegistrationServlet extends HttpServlet {
             PrintWriter printWriter = response.getWriter();
 
             if(affectedRows > 0 && !password.isEmpty() && !name.isEmpty() && !email.isEmpty()) {
+                Cookie cookies = new Cookie("id", uuid);
+                response.addCookie(cookies);
+
+                String sqlInsertUserUUID = "insert into uuid(uuid)" +
+                        " values ('" + uuid + "');";
+
+                statement.executeUpdate(sqlInsertUserUUID);
+
                 printWriter.println("Регистрация прошла успешно");
             } else {
                 printWriter.println("Не удалось выполнить регистрацию");
@@ -65,7 +75,7 @@ public class RegistrationServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/registration.html").forward(request, response);
+        request.getRequestDispatcher("/html/registration.html").forward(request, response);
     }
 
 }

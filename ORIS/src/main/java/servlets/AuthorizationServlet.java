@@ -2,18 +2,18 @@ package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.User;
 import repository.UserRepository;
 import repository.UserRepositoryJDBCImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.UUID;
 
 @WebServlet("/aut")
 public class AuthorizationServlet extends HttpServlet {
@@ -47,14 +47,32 @@ public class AuthorizationServlet extends HttpServlet {
 
         PrintWriter writer = response.getWriter();
 
-        if(usersRepository.findUser(email, password)) {
-            writer.println("Вход выполнен успешно");
+        if (usersRepository.findUser(email, password)) {
+            writer.println("ok");
         } else {
-            writer.println("Не удалось выполнить вход");
+            writer.println("fail");
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/authorization.html").forward(request, response);
+        if (request.getCookies() == null) {
+            request.getRequestDispatcher("/html/authorization.html").forward(request, response);
+        } else {
+            Cookie[] cookies = request.getCookies();
+            String uuid = null;
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("id")) {
+                    uuid = cookie.getValue();
+                }
+            }
+            String userName = usersRepository.findIdByUUID(uuid);
+
+            if (!userName.equals("null")) {
+                request.getRequestDispatcher("/successfulRegistration.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            }
+        }
     }
 }

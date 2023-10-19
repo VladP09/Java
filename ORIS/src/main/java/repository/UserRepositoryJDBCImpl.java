@@ -10,7 +10,7 @@ public class UserRepositoryJDBCImpl implements UserRepository{
 
     private Connection connection;
     private Statement statement;
-    private static final String SQL_SELECT_ALL_FROM_DRIVER = "select * from driver";
+    private static final String SQL_SELECT_ALL_FROM_DRIVER = "select * from driver1";
 
 
     public UserRepositoryJDBCImpl(Connection connection, Statement statement){
